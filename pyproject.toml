@@ -26,6 +26,11 @@ dependencies = [
 [project.optional-dependencies]
 marshmallow = ["marshmallow>=3.0", "apispec[marshmallow]>=6.0"]
 yaml = ["PyYAML>=6.0"]
+
+# Development/test tooling lives in a PEP 735 dependency group (installed by
+# `uv sync` by default / `--dev`), not as a published extra.  It pulls in the
+# optional features so the full test suite can run.
+[dependency-groups]
 dev = [
     "pytest>=7.0",
     "marshmallow>=3.0",
