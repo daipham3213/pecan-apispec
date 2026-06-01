@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pecan-apispec"
+version = "0.1.0"
+description = "Decorator-driven OpenAPI 3 spec generation for Pecan applications"
+readme = "README.rst"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [{ name = "pecan-apispec contributors" }]
+keywords = ["pecan", "openapi", "apispec", "swagger", "wsgi", "rest"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "apispec>=6.0",
+    "pecan>=1.4",
+]
+
+[project.optional-dependencies]
+marshmallow = ["marshmallow>=3.0", "apispec[marshmallow]>=6.0"]
+yaml = ["PyYAML>=6.0"]
+dev = [
+    "pytest>=7.0",
+    "marshmallow>=3.0",
+    "apispec[marshmallow]>=6.0",
+    "PyYAML>=6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/example/pecan-apispec"
+Source = "https://github.com/example/pecan-apispec"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pecan_apispec"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/pecan_apispec",
+    "/examples",
+    "/tests",
+    "/README.rst",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 79
+
+[tool.ruff.lint]
+# Defaults (E4/E7/E9, F) plus import sorting and pycodestyle warnings.
+extend-select = ["I", "W"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+
+[tool.ruff.lint.per-file-ignores]
+# Example app intentionally defines controllers conditionally / for their
+# import side effects.
+"examples/*" = ["E402"]
+"tests/*" = ["E402"]
